@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Funcao;
 use App\Models\Funcionario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerFuncionario extends Controller
 {
@@ -28,8 +29,8 @@ class ControllerFuncionario extends Controller
      */
     public function create()
     {
-        $funoes = Funcao::OrderBy('funcao')->get();
-        return view('admin.funcionario.create',['funoes'=>$funoes]);
+        $funcoes = Funcao::OrderBy('funcao')->get();
+        return view('admin.funcionario.create',['funcoes'=>$funcoes]);
     }
 
     /**
@@ -56,7 +57,12 @@ class ControllerFuncionario extends Controller
      */
     public function show($id)
     {
-        //
+        $funcionario = Funcionario::join('funcaos','funcaos.id','funcao_id')
+        ->where('funcionarios.id','=',$id)
+        ->select('funcionarios.*','funcaos.funcao as funcao')
+        ->first();
+        $show = "show";
+       return view('admin.funcionario.show',['funcionario'=>$funcionario,'show'=>$show]);
     }
 
     /**
@@ -67,7 +73,12 @@ class ControllerFuncionario extends Controller
      */
     public function edit($id)
     {
-        //
+        $funcoes = Funcao::OrderBy('funcao')->get();
+        $funcionario = Funcionario::join('funcaos','funcaos.id','funcao_id')
+        ->where('funcionarios.id','=',$id)
+        ->select('funcionarios.*')
+        ->first();
+       return view('admin.funcionario.edit',['funcionario'=>$funcionario,'funcoes'=>$funcoes]);
     }
 
     /**
@@ -79,7 +90,18 @@ class ControllerFuncionario extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $funcionario_update = Funcionario::where('id','=',$id)->update([
+            'nome'=>$request->nome,
+            'tipo_doc'=>$request->tipo_doc,
+            'numero_doc'=>$request->numero_doc,
+            'data_validade'=>$request->data_validade,
+            'endereco'=>$request->endereco,
+            'telefone1'=>$request->telefone1,
+            'telefone2'=>$request->telefone2,
+            'email'=>$request->email,
+            'funcao_id'=>$request->funcao_id
+        ]);
+        return redirect()->route('funcionarios.index')->with('status','success');
     }
 
     /**
@@ -88,8 +110,15 @@ class ControllerFuncionario extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $hash = Auth::user()->password;
+        if(password_verify($request->password, $hash)){
+            if ($funcionario=Funcionario::where('id',$id)) {
+                $remove = $funcionario->delete();
+                return redirect()->route('funcionarios.index')->with('status','success');
+            }
+        }
+        return redirect()->route('funcionarios.index')->with('status','error');
     }
 }

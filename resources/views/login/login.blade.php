@@ -54,6 +54,8 @@
             $.post("{{ route('iniciar_sessao') }}",{'_token': '{{ csrf_token() }}',email:email,password:password},function(dados){
                if(dados == "success"){
                 window.location.href="{{route('login')}}";
+               }else{
+                   alert("Erro ao iniciar sessao")
                }
             })
         }

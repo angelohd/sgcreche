@@ -36,10 +36,10 @@
                                         {{ $funcionario->email }}
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary dim" data-toggle="modal"
-                                        data-target="#myModal-{{ $funcionario->id }}">
-                                        <i class="fa fa-edit"></i> Editar
-                                    </button>
+                                    <button type="button" class="btn btn-primary dim" data-toggle="modal"
+                                    data-target="#edit-{{ $funcionario->id }}">
+                                    <i class="fa fa-edit" ></i> Editar
+                                </button>
                                         <button type="button" class="btn btn-danger dim" data-toggle="modal"
                                             data-target="#delete-{{ $funcionario->id }}">
                                             <i class="fa fa-trash-o"></i> Remover
@@ -56,7 +56,7 @@
                                                             aria-hidden="true">&times;</span><span
                                                             class="sr-only">Close</span></button>
                                                     <h4 class="modal-title">Remover funcionario</h4>
-                                                    <small class="font-bold">{{ $funcionario->funcionario }}.</small>
+                                                    <small class="font-bold">{{ $funcionario->nome }}.</small>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form method="post" action="{{ Route('funcionarios.destroy',$funcionario->id) }}">
@@ -72,6 +72,26 @@
                                         </div>
                                     </div>
                                     <!-- fim de remover ano lectivo -->
+
+                                    <!-- editar funcionario -->
+                                    <div class="modal inmodal" id="edit-{{ $funcionario->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content animated bounceInRight">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span
+                                                            aria-hidden="true">&times;</span><span
+                                                            class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">Pretende editar os dados deste funcionario?</h4>
+                                                    <small class="font-bold">{{ $funcionario->nome }}.</small>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <a href="{{ route('funcionarios.edit',$funcionario->id) }}" class="btn btn-primary">Editar</a> /
+                                                    <a href="{{ route('funcionarios.show',$funcionario->id) }}" class="btn btn-primary">Detalhe</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- fim de editar ano lectivo -->
                                 </tr>
 
                             @empty
@@ -85,4 +105,5 @@
             </div>
         </div>
     </div>
+
 @endsection
