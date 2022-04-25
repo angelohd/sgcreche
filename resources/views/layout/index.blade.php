@@ -46,14 +46,17 @@
                     <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Utilitários</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="{{ route('ano_lectivos.index') }}">Ano Lectivo</a></li>
-                        <li><a href="form_advanced.html">Advanced Plugins</a></li>
-                        <li><a href="form_wizard.html">Wizard</a></li>
-                        <li><a href="form_file_upload.html">File Upload</a></li>
-                        <li><a href="form_editors.html">Text Editor</a></li>
-                        <li><a href="form_autocomplete.html">Autocomplete</a></li>
-                        <li><a href="form_markdown.html">Markdown</a></li>
+                        <li><a href="{{ route('salas.index') }}">Salas</a></li>
                     </ul>
                 </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Registar</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ route('funcionarios.index') }}">Funcionarios</a></li>
+                    </ul>
+                </li>
+
             </ul>
 
         </div>
@@ -88,29 +91,6 @@
             </div>
             <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="row">
-                    @if(session('status')=="success")
-                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                    <script>
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Sucesso.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    </script>
-                    @else
-                    <script>
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'error',
-                            title: 'Erro.',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    </script>
-
-                    @endif
                     @yield('corpo')
                 </div>
             </div>
@@ -139,6 +119,42 @@
     <!-- Custom and plugin javascript -->
     <script src="{{ url('js/inspinia.js')}}"></script>
     <script src="{{ url('js/plugins/pace/pace.min.js')}}"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('status')=="success")
+
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Sucesso.',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+    @elseif(session('status')=="error")
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Erro ao realizar esta operação.',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+    @elseif(session('status')=="existe")
+    <script>
+        Swal.fire({
+            position: 'top-end',
+            icon: 'info',
+            title: 'Já existe essa informação',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+
+    @endif
+
     @yield('js')
 
 

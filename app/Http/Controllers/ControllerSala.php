@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ano_Lectivo;
+use App\Models\Sala;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-class ControllerAnoLectivo extends Controller
+class ControllerSala extends Controller
 {
 
 
@@ -19,9 +19,9 @@ class ControllerAnoLectivo extends Controller
      */
     public function index()
     {
-        $ano_lectivos = Ano_Lectivo::get()
+        $salas = Sala::get()
         ->all();
-        return view('admin.ano_lectivo.index',['ano_lectivos'=>$ano_lectivos]);
+        return view('admin.sala.index',['salas'=>$salas]);
     }
 
     /**
@@ -47,20 +47,20 @@ class ControllerAnoLectivo extends Controller
         ->select('funcionarios.id as id')
         ->first();
 
-        $ano_lectivo = Ano_Lectivo::where('ano_lectivo','=',$request->ano_lectivo)
+        $sala = sala::where('sala','=',$request->sala)
         ->first();
 
-        if($ano_lectivo){
-            return redirect()->route('ano_lectivos.index')->with('status','existe');
+        if($sala){
+            return redirect()->route('salas.index')->with('status','existe');
         }
 
-        $save = Ano_Lectivo::create([
-            'ano_lectivo'=>$request->ano_lectivo,
+        $save = sala::create([
+            'sala'=>$request->sala,
             'funcionario_id'=>$funcionario->id,
 
         ]);
         if($save){
-            return redirect()->route('ano_lectivos.index')->with('status','success');
+            return redirect()->route('salas.index')->with('status','success');
         }
     }
 
@@ -95,11 +95,11 @@ class ControllerAnoLectivo extends Controller
      */
     public function update(Request $request, $id)
     {
-        $update = Ano_Lectivo::where('id','=',$id)->update([
-            'ano_lectivo'=>$request->ano_lectivo,
+        $update = sala::where('id','=',$id)->update([
+            'sala'=>$request->sala,
         ]);
         if($update){
-            return redirect()->route('ano_lectivos.index')->with('status','success');
+            return redirect()->route('salas.index')->with('status','success');
         }
     }
 
@@ -113,27 +113,27 @@ class ControllerAnoLectivo extends Controller
     {
         $hash = Auth::user()->password;
         if(password_verify($request->password, $hash)){
-            if ($ano_lectivo=Ano_Lectivo::where('id',$id)) {
-                $remove =  $ano_lectivo->delete();
-                return redirect()->route('ano_lectivos.index')->with('status','success');
+            if ($sala=sala::where('id',$id)) {
+                $remove =  $sala->delete();
+                return redirect()->route('salas.index')->with('status','success');
             }
         }
-        return redirect()->route('ano_lectivos.index')->with('status','error');
+        return redirect()->route('salas.index')->with('status','error');
 
     }
 
     function recilagem(){
-        $ano_lectivos = Ano_Lectivo::onlyTrashed()->get();
-        return view('admin.ano_lectivo.reciclagem',['ano_lectivos'=>$ano_lectivos]);
+        $salas = sala::onlyTrashed()->get();
+        return view('admin.sala.reciclagem',['salas'=>$salas]);
     }
 
     function restaurar(Request $request,$id){
         $hash = Auth::user()->password;
         if(password_verify($request->password, $hash)){
-           $ano_lectivo=Ano_Lectivo::withTrashed()->findOrFail($id)->restore();
-           return redirect()->route('ano_lectivos.index')->with('status','success');
+           $sala=sala::withTrashed()->findOrFail($id)->restore();
+           return redirect()->route('salas.index')->with('status','success');
         }
-        return redirect()->route('ano_lectivos.index')->with('status','error');
+        return redirect()->route('salas.index')->with('status','error');
 
 
     }

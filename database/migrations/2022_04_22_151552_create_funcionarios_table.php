@@ -21,7 +21,7 @@ class CreateFuncionariosTable extends Migration
             $table->date('data_validade');
             $table->text('endereco');
             $table->string('telefone1');
-            $table->string('telefone2');
+            $table->string('telefone2')->nullable();
             $table->string('email');
             $table->foreignId('funcao_id');
             $table->foreign('funcao_id')->references('id')->on('funcaos')->onDelete('cascade');

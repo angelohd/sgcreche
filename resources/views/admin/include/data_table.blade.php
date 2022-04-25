@@ -2,6 +2,7 @@
 <link href="{{ url('css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
 @endsection
 @section('js')
+<script src="{{ url('js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
 <script src="{{ url('js/plugins/validate/jquery.validate.min.js') }}"></script>
 <script src="{{ url('js/plugins/dataTables/datatables.min.js')}}"></script>
 <script src="{{ url('js/plugins/dataTables/dataTables.bootstrap4.min.js')}}"></script>
