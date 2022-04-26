@@ -19,7 +19,6 @@ class CreateEncarregadosTable extends Migration
             $table->enum('tipo_doc',['Passaporte','Bilhete de Identidade','Outro']);
             $table->string('numero_doc');
             $table->date('data_validade');
-            $table->date('data_nasc');
             $table->text('endereco');
             $table->string('telefone1');
             $table->string('telefone2');

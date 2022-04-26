@@ -134,7 +134,5 @@ class ControllerAnoLectivo extends Controller
            return redirect()->route('ano_lectivos.index')->with('status','success');
         }
         return redirect()->route('ano_lectivos.index')->with('status','error');
-
-
     }
 }

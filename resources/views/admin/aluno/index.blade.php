@@ -1,5 +1,5 @@
 @extends('layout.index')
-@section('titulo', 'Funcionario')
+@section('titulo', 'Alunos')
 @section('corpo')
 
     @include('admin.include.data_table')
@@ -8,8 +8,8 @@
         <div class="ibox ">
             <div class="ibox-title">
                 {{-- <h5>Basic Data Tables example with responsive plugin</h5> --}}
-                <a href="{{ route('funcionarios.create') }}" class="btn btn-primary">Registar funcionario</a>
-                / <a href="{{ route('funcionario.recilagem') }}" class="btn btn-dark">Reciclagem</a>
+                <a href="{{ route('alunos.create') }}" class="btn btn-primary">Registar aluno</a>
+                / <a href="{{ route('aluno.recilagem') }}" class="btn btn-dark">Reciclagem</a>
             </div>
             <div class="ibox-content">
 
@@ -18,48 +18,60 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Função</th>
-                                <th>E-Mail</th>
+                                <th>Tipo Doc.</th>
+                                <th>Nº Doc.</th>
+                                <th>Data Val.</th>
+                                <th>Data Nasc.</th>
+                                <th>Endereço</th>
                                 <th>Acção</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($funcionarios as $funcionario)
+                            @forelse ($alunos as $aluno)
                                 <tr>
                                     <td>
-                                        {{ $funcionario->nome }}
+                                        {{ $aluno->nome }}
                                     </td>
                                     <td>
-                                        {{ $funcionario->funcao }}
+                                        {{ $aluno->tipo_doc }}
                                     </td>
                                     <td>
-                                        {{ $funcionario->email }}
+                                        {{ $aluno->numero_doc }}
+                                    </td>
+                                    <td>
+                                        {{ $aluno->data_validade }}
+                                    </td>
+                                    <td>
+                                        {{ $aluno->data_nasc }}
+                                    </td>
+                                    <td>
+                                        {{ $aluno->endereco }}
                                     </td>
                                     <td>
                                     <button type="button" class="btn btn-primary dim" data-toggle="modal"
-                                    data-target="#edit-{{ $funcionario->id }}">
+                                    data-target="#edit-{{ $aluno->id }}">
                                     <i class="fa fa-edit" ></i> Editar
                                 </button>
                                         <button type="button" class="btn btn-danger dim" data-toggle="modal"
-                                            data-target="#delete-{{ $funcionario->id }}">
+                                            data-target="#delete-{{ $aluno->id }}">
                                             <i class="fa fa-trash-o"></i> Remover
                                         </button>
                                     </td>
 
 
-                                    <!-- remover funcionario -->
-                                    <div class="modal inmodal" id="delete-{{ $funcionario->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <!-- remover aluno -->
+                                    <div class="modal inmodal" id="delete-{{ $aluno->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content animated bounceInRight">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal"><span
                                                             aria-hidden="true">&times;</span><span
                                                             class="sr-only">Close</span></button>
-                                                    <h4 class="modal-title">Remover funcionario</h4>
-                                                    <small class="font-bold">{{ $funcionario->nome }}.</small>
+                                                    <h4 class="modal-title">Remover aluno</h4>
+                                                    <small class="font-bold">{{ $aluno->nome }}.</small>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{ Route('funcionarios.destroy',$funcionario->id) }}">
+                                                    <form method="post" action="{{ Route('alunos.destroy',$aluno->id) }}">
                                                         @csrf
                                                         @method('DELETE')
                                                        <input type="password" class="form-control" placeholder="Palavra passe" required name="password">
@@ -73,20 +85,20 @@
                                     </div>
                                     <!-- fim de remover ano lectivo -->
 
-                                    <!-- editar funcionario -->
-                                    <div class="modal inmodal" id="edit-{{ $funcionario->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <!-- editar aluno -->
+                                    <div class="modal inmodal" id="edit-{{ $aluno->id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content animated bounceInRight">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal"><span
                                                             aria-hidden="true">&times;</span><span
                                                             class="sr-only">Close</span></button>
-                                                    <h4 class="modal-title">Pretende editar os dados deste funcionario?</h4>
-                                                    <small class="font-bold">{{ $funcionario->nome }}.</small>
+                                                    <h4 class="modal-title">Pretende editar os dados deste aluno?</h4>
+                                                    <small class="font-bold">{{ $aluno->nome }}.</small>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <a href="{{ route('funcionarios.edit',$funcionario->id) }}" class="btn btn-primary">Editar</a> /
-                                                    <a href="{{ route('funcionarios.show',$funcionario->id) }}" class="btn btn-primary">Detalhe</a>
+                                                    <a href="{{ route('alunos.edit',$aluno->id) }}" class="btn btn-primary">Editar</a> /
+                                                    <a href="{{ route('alunos.show',$aluno->id) }}" class="btn btn-primary">Detalhe</a>
                                                 </div>
                                             </div>
                                         </div>

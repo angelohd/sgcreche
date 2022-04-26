@@ -121,4 +121,18 @@ class ControllerFuncionario extends Controller
         }
         return redirect()->route('funcionarios.index')->with('status','error');
     }
+
+    function recilagem(){
+        $funcionarios = Funcionario::onlyTrashed()->get();
+        return view('admin.funcionario.reciclagem',['funcionarios'=>$funcionarios]);
+    }
+
+    function restaurar(Request $request,$id){
+        $hash = Auth::user()->password;
+        if(password_verify($request->password, $hash)){
+           $funcionario=Funcionario::withTrashed()->findOrFail($id)->restore();
+           return redirect()->route('funcionarios.index')->with('status','success');
+        }
+        return redirect()->route('funcionarios.index')->with('status','error');
+    }
 }

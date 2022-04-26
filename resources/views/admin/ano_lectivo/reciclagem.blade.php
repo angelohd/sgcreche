@@ -29,7 +29,7 @@
                                     <td>
                                         <button type="button" class="btn btn-primary dim" data-toggle="modal"
                                             data-target="#restaurar-{{ $ano_lectivo->id }}">
-                                            <i class="fa fa-edit"></i> Restaurar
+                                            <i class="fa fa-level-up"></i> Restaurar
                                         </button>
                                     </td>
 

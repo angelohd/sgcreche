@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ControllerAluno;
 use App\Http\Controllers\ControllerAnoLectivo;
 use App\Http\Controllers\ControllerFuncionario;
 use App\Http\Controllers\ControllerSala;
@@ -48,6 +49,12 @@ Route::middleware('auth')->group(function(){
 
         Route::resource('funcionarios',ControllerFuncionario::class);
         Route::prefix('funcionario')->name('funcionario.')->group(function(){
+                Route::get('recilagem',[ControllerFuncionario::class,'recilagem'])->name('recilagem');
+                Route::post('restaurar/{id}',[ControllerFuncionario::class,'restaurar'])->name('restaurar');
+        });
+
+        Route::resource('alunos',ControllerAluno::class);
+        Route::prefix('aluno')->name('aluno.')->group(function(){
                 Route::get('recilagem',[ControllerFuncionario::class,'recilagem'])->name('recilagem');
                 Route::post('restaurar/{id}',[ControllerFuncionario::class,'restaurar'])->name('restaurar');
         });
