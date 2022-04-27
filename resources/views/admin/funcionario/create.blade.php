@@ -1,5 +1,5 @@
 @extends('layout.index')
-@section('titulo', 'Registar funcionario')
+@section('titulo', 'Registar Funcionario')
 @section('corpo')
 
     @include('admin.include.data_table')

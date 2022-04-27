@@ -15,14 +15,14 @@ class CreateEncarregadosTable extends Migration
     {
         Schema::create('encarregados', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->enum('tipo_doc',['Passaporte','Bilhete de Identidade','Outro']);
-            $table->string('numero_doc');
-            $table->date('data_validade');
-            $table->text('endereco');
-            $table->string('telefone1');
-            $table->string('telefone2');
-            $table->string('email');
+            $table->string('nome')->nullable();
+            $table->enum('tipo_doc',['Passaporte','Bilhete de Identidade','Outro'])->nullable();
+            $table->string('numero_doc')->nullable();
+            $table->date('data_validade')->nullable();
+            $table->text('endereco')->nullable();
+            $table->string('telefone1')->nullable();
+            $table->string('telefone2')->nullable();
+            $table->string('email')->nullable();
             $table->foreignId('funcionario_id');
             $table->foreign('funcionario_id')->references('id')->on('funcionarios')->onDelete('cascade');
             $table->timestamps();
