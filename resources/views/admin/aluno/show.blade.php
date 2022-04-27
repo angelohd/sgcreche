@@ -1,5 +1,5 @@
 @extends('layout.index')
-@section('titulo', 'Detalhes do funcionario')
+@section('titulo', 'Detalhes do aluno')
 @section('corpo')
 
     @include('admin.include.data_table')
@@ -7,10 +7,10 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <a href="{{ route('funcionarios.index') }}" class="btn btn-info">Funcionarios</a>
+                <a href="{{ route('alunos.index') }}" class="btn btn-info">Alunos</a>
             </div>
             <div class="ibox-content">
-                @include('admin.funcionario.form')
+                @include('admin.aluno.form')
             </div>
         </div>
     </div>

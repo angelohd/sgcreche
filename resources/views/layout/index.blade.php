@@ -58,6 +58,9 @@
                     <ul class="nav nav-second-level collapse">
                         <li><a href="{{ route('alunos.index') }}">Alunos</a></li>
                     </ul>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ route('encarregados.index') }}">Encarregados</a></li>
+                    </ul>
                 </li>
 
             </ul>

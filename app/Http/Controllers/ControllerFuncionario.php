@@ -112,6 +112,9 @@ class ControllerFuncionario extends Controller
      */
     public function destroy(Request $request,$id)
     {
+        if(Auth::user()->id == $id){
+            return redirect()->route('funcionarios.index')->with('status','error');
+        }
         $hash = Auth::user()->password;
         if(password_verify($request->password, $hash)){
             if ($funcionario=Funcionario::where('id',$id)) {
