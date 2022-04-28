@@ -17,10 +17,12 @@ class CreateMovimentoAlunosTable extends Migration
             $table->id();
             $table->foreignId('aluno_id');
             $table->foreignId('funcionario_id');
-            $table->timestamp('data_movimento');
-            $table->enum('movimento',['Entrada','Saida']);
+            $table->foreignId('encarregado_id')->nullable();
+            // $table->timestamp('data_movimento');
+            // $table->enum('movimento',['Entrada','Saida']);
             $table->foreign('aluno_id')->references('id')->on('alunos')->onDelete('cascade');
             $table->foreign('funcionario_id')->references('id')->on('funcionarios')->onDelete('cascade');
+            $table->foreign('encarregado_id')->references('id')->on('encarregados')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

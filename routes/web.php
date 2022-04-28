@@ -58,9 +58,19 @@ Route::middleware('auth')->group(function(){
         Route::prefix('aluno')->name('aluno.')->group(function(){
                 Route::get('recilagem',[ControllerAluno::class,'recilagem'])->name('recilagem');
                 Route::post('restaurar/{id}',[ControllerAluno::class,'restaurar'])->name('restaurar');
+                Route::get('alunos',[ControllerAluno::class,'alunos'])->name('alunos');
+                Route::post('presente/{id}',[ControllerAluno::class,'aluno_presnete'])->name('presente');
+                Route::get('presentes',[ControllerAluno::class,'alunos_presnetes'])->name('presnetes');
         });
 
         Route::resource('encarregados',ControllerEncarregado::class);
+        Route::prefix('encarregado')->name('encarregado.')->group(function(){
+            Route::get('criancas',[ControllerEncarregado::class,'listar_criancas'])->name('listar_criancas');
+            Route::get('agregar/crianca/{id}',[ControllerEncarregado::class,'agregar_encarregado'])->name('agregar_encarregado');
+            Route::post('agregar/{id}',[ControllerEncarregado::class,'agregar'])->name('agregar');
+            Route::get('buscar',[ControllerEncarregado::class,'buscar'])->name('buscar');
+
+        });
 
     });
 });

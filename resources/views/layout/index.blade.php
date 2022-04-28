@@ -58,8 +58,21 @@
                     <ul class="nav nav-second-level collapse">
                         <li><a href="{{ route('alunos.index') }}">Alunos</a></li>
                     </ul>
-                    <ul class="nav nav-second-level collapse">
+                    <ul class="nav nav-second-level collapse active">
                         <li><a href="{{ route('encarregados.index') }}">Encarregados</a></li>
+                    </ul>
+                    <ul class="nav nav-second-level collapse active">
+                        <li><a href="{{ route('encarregado.listar_criancas') }}">Agregar encarregado</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Movimento das crianças</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ route('aluno.alunos') }}">Entrada</a></li>
+                    </ul>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ route('aluno.presnetes') }}">Saida</a></li>
                     </ul>
                 </li>
 

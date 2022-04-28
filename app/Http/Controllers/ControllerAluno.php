@@ -7,6 +7,7 @@ use App\Models\Ano_Lectivo;
 use App\Models\Encarregado;
 use App\Models\Encarregado_has_Aluno;
 use App\Models\Matricula;
+use App\Models\Movimento_Aluno;
 use App\Models\Sala;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -235,5 +236,29 @@ class ControllerAluno extends Controller
            return redirect()->route('alunos.index')->with('status','success');
         }
         return redirect()->route('alunos.index')->with('status','error');
+    }
+
+    function alunos(){
+        $alunos = Aluno::get();
+        return view('admin.movimento.index', ['alunos' => $alunos]);
+    }
+
+    function aluno_presnete($id){
+        $aluno = Movimento_Aluno::where('aluno_id','=',$id)->first();
+        if($aluno){
+            return redirect()->route('aluno.alunos')->with('status','existe');
+        }
+        $entrada = Movimento_Aluno::create([
+            'aluno_id'=>$id,
+            'funcionario_id'=>Auth::user()->id
+        ]);
+
+        return redirect()->route('aluno.alunos')->with('status','success');
+    }
+
+    function alunos_presnetes(){
+        $alunos = Movimento_Aluno::join('alunos','alunos.id','aluno_id')
+        ->get();
+        return view('admin.movimento.presentes', ['alunos' => $alunos]);
     }
 }

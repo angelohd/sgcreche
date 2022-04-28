@@ -47,7 +47,7 @@
         <div class="col-lg-4">
             <div class="form-group">
                 <label>Nome *</label>
-                <input id="nome" name="nome_encarregado_1" type="text" class="form-control required">
+                <input id="nome_encarregado_1" name="nome_encarregado_1" type="text" class="form-control required">
             </div>
             <div class="form-group">
                 <label>Tipo de Identificação *</label>
@@ -59,24 +59,26 @@
             </div>
             <div class="form-group">
                 <label>Numero de Identificação *</label>
-                <input id="numero_doc" name="numero_doc_encarregado_1" type="text" class="form-control required">
+                <input id="numero_doc_encarregado_1" name="numero_doc_encarregado_1" type="text"
+                    class="form-control required" onblur="encarregado1(this.value)">
             </div>
         </div>
         <div class="col-lg-4">
             <div class="form-group">
                 <label>Data de Validade *</label>
-                <input id="data_validade" name="data_validade_encarregado_1" type="date" class="form-control required">
+                <input id="data_validade_encarregado_1" name="data_validade_encarregado_1" type="date"
+                    class="form-control required">
             </div>
             <div class="form-group">
                 <label>Telefone 1 *</label>
-                <input id="telefone1_encarregado_1" name="telefone_encarregado_1" type="text"
+                <input id="telefone_encarregado_1" name="telefone_encarregado_1" type="text"
                     data-mask="(244)-999-999-999" class="form-control required">
             </div>
 
             <div class="form-group">
                 <label>Telefone 2</label>
-                <input id="telefone2" name="telefone2_encarregado_1" type="text" data-mask="(244)-999-999-999"
-                    class="form-control">
+                <input id="telefone2_encarregado_1" name="telefone2_encarregado_1" type="text"
+                    data-mask="(244)-999-999-999" class="form-control">
             </div>
 
         </div>
@@ -85,7 +87,7 @@
 
             <div class="form-group">
                 <label>E-Mail *</label>
-                <input id="email" name="email_encarregado_1" type="email" class="form-control required">
+                <input id="email_encarregado_1" name="email_encarregado_1" type="email" class="form-control required">
             </div>
             <div class="form-group">
                 <label>Endereo *</label>
@@ -115,19 +117,21 @@
             </div>
             <div class="form-group">
                 <label>Numero de Identificação</label>
-                <input id="numero_doc" name="numero_doc_encarregado_2" type="text" class="form-control">
+                <input id="numero_doc_encarregado_2" name="numero_doc_encarregado_2" type="text" class="form-control"
+                    onblur="encarregado2(this.value)">
             </div>
         </div>
 
         <div class="col-lg-4">
             <div class="form-group">
                 <label>Data de Validade</label>
-                <input id="data_validade" name="data_validade_encarregado_2" type="date" class="form-control">
+                <input id="data_validade_encarregado_2" name="data_validade_encarregado_2" type="date"
+                    class="form-control">
             </div>
 
             <div class="form-group">
                 <label>Telefone 1</label>
-                <input id="telefone1_encarregado_2" name="telefone1_encarregado_2" type="text" class="form-control"
+                <input id="telefone_encarregado_2" name="telefone1_encarregado_2" type="text" class="form-control"
                     data-mask="(244)-999-999-999">
             </div>
 
@@ -143,11 +147,11 @@
 
             <div class="form-group">
                 <label>E-Mail</label>
-                <input id="email" name="email_encarregado_2" type="email" class="form-control">
+                <input id="email_encarregado_2" name="email_encarregado_2" type="email" class="form-control">
             </div>
             <div class="form-group">
                 <label>Endereo</label>
-                <textarea name="endereco_encarregado_2" id="" class="form-control"></textarea>
+                <textarea name="endereco_encarregado_2" id="endereco_encarregado_2" class="form-control"></textarea>
             </div>
 
         </div>
@@ -178,3 +182,42 @@
         </div>
     </div>
 </fieldset>
+
+<script>
+    function encarregado1(numero_doc) {
+        $.get("{{ route('encarregado.buscar') }}", {
+            numero_doc: numero_doc
+        }, function(data) {
+            // console.log(data.nome)
+            console.log(data)
+            if (data != "") {
+                $("#nome_encarregado_1").val(data.nome)
+                $("#numero_doc_encarregado_1").val(data.numero_doc)
+                $("#data_validade_encarregado_1").val(data.data_validade)
+                $("#telefone_encarregado_1").val(data.telefone1)
+                $("#telefone2_encarregado_1").val(data.telefone2)
+                $("#email_encarregado_1").val(data.email)
+                $("#endereco_encarregado_1").val(data.endereco)
+            }
+
+        });
+    }
+
+    function encarregado2(numero_doc) {
+        $.get("{{ route('encarregado.buscar') }}", {
+            numero_doc: numero_doc
+        }, function(data) {
+            // console.log(data.nome)
+            if (data != "") {
+                $("#nome_encarregado_2").val(data.nome)
+                $("#numero_doc_encarregado_2").val(data.numero_doc)
+                $("#data_validade_encarregado_2").val(data.data_validade)
+                $("#telefone_encarregado_2").val(data.telefone1)
+                $("#telefone2_encarregado_2").val(data.telefone2)
+                $("#email_encarregado_2").val(data.email)
+                $("#endereco_encarregado_2").val(data.endereco)
+            }
+
+        });
+    }
+</script>

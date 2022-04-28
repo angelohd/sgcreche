@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
 use App\Models\Encarregado;
+use App\Models\Encarregado_has_Aluno;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ControllerEncarregado extends Controller
 {
@@ -95,5 +98,58 @@ class ControllerEncarregado extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function listar_criancas(){
+        $alunos = Aluno::get();
+        return view('admin.encarregado.criancas',['alunos'=>$alunos]);
+    }
+
+    function agregar_encarregado($id){
+        $crianca = Aluno::where('id','=',$id)->first();
+        return view('admin.encarregado.agregar',['crianca'=>$crianca]);
+    }
+
+    function agregar(Request $request,$id){
+
+        $existe_encarregado = Encarregado::where('numero_doc','=',$request->numero_doc)->first();
+        if($existe_encarregado){
+            $agregar = Encarregado_has_Aluno::create([
+                'aluno_id'=>$id,
+                'encarregado_id'=>$existe_encarregado->id
+            ]);
+            return redirect()->route('encarregado.listar_criancas')->with('status','success');
+        }
+
+        $update_encarregado = Encarregado::create([
+            'nome'=>$request->nome,
+            'tipo_doc'=>$request->tipo_doc,
+            'numero_doc'=>$request->numero_doc,
+            'data_validade'=>$request->data_validade,
+            'endereco'=>$request->endereco,
+            'telefone1'=>$request->telefone1,
+            'telefone2'=>$request->telefone2,
+            'email'=>$request->email,
+            'funcionario_id'=>Auth::user()->id
+        ]);
+
+        $encarregado = Encarregado::get()->last();
+
+        $agregar = Encarregado_has_Aluno::create([
+            'aluno_id'=>$id,
+            'encarregado_id'=>$encarregado->id
+        ]);
+
+        return redirect()->route('encarregado.listar_criancas')->with('status','success');
+    }
+
+    function buscar(Request $request){
+
+        $encarregado = Encarregado::where('numero_doc','=',$request->numero_doc)->first();
+        if($encarregado){
+            return $encarregado;
+        }
+
+        // return ($request->numero_doc);
     }
 }
