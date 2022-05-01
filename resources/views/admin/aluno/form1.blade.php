@@ -1,5 +1,5 @@
 @csrf
-<h1>Dados do aluno</h1>
+<h1>Dados da Criança</h1>
 <fieldset>
     <div class="row">
         <div class="col-lg-6">
@@ -72,13 +72,13 @@
             <div class="form-group">
                 <label>Telefone 1 *</label>
                 <input id="telefone_encarregado_1" name="telefone_encarregado_1" type="text"
-                    data-mask="(244)-999-999-999" class="form-control required">
+                    data-mask="+244999999999" class="form-control required">
             </div>
 
             <div class="form-group">
                 <label>Telefone 2</label>
                 <input id="telefone2_encarregado_1" name="telefone2_encarregado_1" type="text"
-                    data-mask="(244)-999-999-999" class="form-control">
+                    data-mask="+244999999999" class="form-control">
             </div>
 
         </div>
@@ -132,13 +132,13 @@
             <div class="form-group">
                 <label>Telefone 1</label>
                 <input id="telefone_encarregado_2" name="telefone1_encarregado_2" type="text" class="form-control"
-                    data-mask="(244)-999-999-999">
+                    data-mask="+244999999999">
             </div>
 
             <div class="form-group">
                 <label>Telefone 2</label>
                 <input id="telefone2_encarregado_2" name="telefone2_encarregado_2" type="text" class="form-control"
-                    data-mask="(244)-999-999-999">
+                    data-mask="+244999999999">
             </div>
 
         </div>

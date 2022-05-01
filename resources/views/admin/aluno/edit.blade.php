@@ -1,5 +1,5 @@
 @extends('layout.index')
-@section('titulo', 'Editar aluno')
+@section('titulo', 'Editar Criança')
 @section('corpo')
 
     @include('admin.include.data_table')
@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <a href="{{ route('alunos.index') }}" class="btn btn-info">Alunos</a>
+                <a href="{{ route('alunos.index') }}" class="btn btn-info">Crianças</a>
             </div>
             <div class="ibox-content">
                 <form method="POST" action="{{ route('alunos.update',$aluno->id) }}">

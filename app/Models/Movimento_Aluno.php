@@ -10,6 +10,6 @@ class Movimento_Aluno extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $table = "movimento__alunos";
-    protected $fillable = ['aluno_id','funcionario_id'];
+    protected $table = "movimento_alunos";
+    protected $fillable = ['aluno_id','funcionario_id','encarregado_id'];
 }

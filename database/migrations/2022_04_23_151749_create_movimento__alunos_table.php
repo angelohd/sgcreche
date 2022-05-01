@@ -13,7 +13,7 @@ class CreateMovimentoAlunosTable extends Migration
      */
     public function up()
     {
-        Schema::create('movimento__alunos', function (Blueprint $table) {
+        Schema::create('movimento_alunos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('aluno_id');
             $table->foreignId('funcionario_id');

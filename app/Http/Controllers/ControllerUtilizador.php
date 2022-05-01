@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aluno;
+use App\Models\Ano_Lectivo;
+use App\Models\Matricula;
+use App\Models\Movimento_Aluno;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +18,14 @@ class ControllerUtilizador extends Controller
      */
     public function index()
     {
-        return view('layout.index');
+        // return view('layout.index');
+        $numero_total_alunos = Aluno::get()->count();
+        $ano_lectivo = Ano_Lectivo::get()->last();
+        $alunos = Matricula::where('ano_lectivo_id',$ano_lectivo->id)->count();
+        $presente = Movimento_Aluno::get()->count();
+        // dd($presente);
+
+        return view('admin.dashboard.index',['numero_total_alunos'=>$numero_total_alunos,'alunos'=>$alunos,'presente'=>$presente]);
     }
 
     /**

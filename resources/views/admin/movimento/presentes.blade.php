@@ -34,23 +34,34 @@
                                     <td>
 
                                         <button type="submit" class="btn btn-primary dim" data-toggle="modal"
-                                            data-target="#edit-{{ $aluno->id }}">
+                                            data-target="#edit-{{ $aluno->idaluno }}" value="{{ $aluno->idaluno }}"
+                                            onclick="encarregados(this.value)">
                                             <i class="fa fa-edit"></i> Saida
                                         </button>
                                     </td>
-                                    <div class="modal inmodal" id="edit-{{ $aluno->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal inmodal" id="edit-{{ $aluno->idaluno }}" tabindex="-1" role="dialog"
+                                        aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content animated bounceInRight">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal"><span
                                                             aria-hidden="true">&times;</span><span
                                                             class="sr-only">Close</span></button>
-                                                    <h4 class="modal-title">Confirmar a presença da criança ?</h4>
+                                                    <h4 class="modal-title">Confirmar a saída da criança ?</h4>
                                                     <small class="font-bold">{{ $aluno->nome }}.</small>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="{{ route('aluno.presente',$aluno->id) }}" method="POST">
+                                                    <form action="{{ route('aluno.saida', $aluno->id) }}"
+                                                        method="POST">
                                                         @csrf
+                                                        <div class="form-group">
+                                                            <select name="encarregado_id" id="encarregado_id-{{ $aluno->idaluno }}"
+                                                                class="form-control">
+                                                                {{-- <option value="0">selecione um encarregado</option> --}}
+                                                            </select>
+
+                                                        </div>
+
                                                         <button class="btn btn-primary dim">SIM</button>
                                                     </form>
                                                 </div>
@@ -70,5 +81,18 @@
             </div>
         </div>
     </div>
+    <script>
+        function encarregados(id) {
+            // alert(id)
+            $.get("{{ route('encarregado.encarregados') }}", {
+                id: id
+            }, function(data) {
+                // console.log(data)
+                var a = '#encarregado_id-'+id
+                $('#encarregado_id-'+id).children('option:not(:first)').remove();
+                $('#encarregado_id-'+id).append(data);
+            });
+        }
+    </script>
 
 @endsection

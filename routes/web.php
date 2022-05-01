@@ -61,6 +61,8 @@ Route::middleware('auth')->group(function(){
                 Route::get('alunos',[ControllerAluno::class,'alunos'])->name('alunos');
                 Route::post('presente/{id}',[ControllerAluno::class,'aluno_presnete'])->name('presente');
                 Route::get('presentes',[ControllerAluno::class,'alunos_presnetes'])->name('presnetes');
+                Route::post('saida/{id}',[ControllerAluno::class,'saida_aluno'])->name('saida');
+                Route::get('historico/entrada/saida',[ControllerAluno::class,'historico_entrada_saida'])->name('historico_entrada_saida');
         });
 
         Route::resource('encarregados',ControllerEncarregado::class);
@@ -69,6 +71,7 @@ Route::middleware('auth')->group(function(){
             Route::get('agregar/crianca/{id}',[ControllerEncarregado::class,'agregar_encarregado'])->name('agregar_encarregado');
             Route::post('agregar/{id}',[ControllerEncarregado::class,'agregar'])->name('agregar');
             Route::get('buscar',[ControllerEncarregado::class,'buscar'])->name('buscar');
+            Route::get('encarregados',[ControllerAluno::class,'encarregados'])->name('encarregados');
 
         });
 

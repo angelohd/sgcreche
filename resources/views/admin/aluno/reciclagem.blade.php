@@ -8,7 +8,7 @@
         <div class="ibox ">
             <div class="ibox-title">
                 {{-- <h5>Basic Data Tables example with responsive plugin</h5> --}}
-                <a href="{{ route('alunos.index') }}" class="btn btn-primary"> Alunos</a>
+                <a href="{{ route('alunos.index') }}" class="btn btn-primary"> Crianças</a>
             </div>
             <div class="ibox-content">
 

@@ -97,13 +97,13 @@
                     <div class="form-group">
                         <label>Telefone 1 *</label>
                         <input id="telefone1" name="telefone1" type="text" class="form-control" required
-                            value="{{ $funcionario->telefone1 ?? old('telefone1') }}" data-mask="(244)-999-999-999">
+                            value="{{ $funcionario->telefone1 ?? old('telefone1') }}" data-mask="+244999999999">
                     </div>
 
                     <div class="form-group">
                         <label>Telefone 2</label>
                         <input id="telefone2" name="telefone2" type="text" class="form-control"
-                            value="{{ $funcionario->telefone2 ?? old('telefone2') }}" data-mask="(244)-999-999-999">
+                            value="{{ $funcionario->telefone2 ?? old('telefone2') }}" data-mask="+244999999999">
                     </div>
                     <div class="form-group">
                         <label>E-Mail *</label>

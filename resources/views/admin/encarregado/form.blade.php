@@ -39,12 +39,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Telefone 1 *</label>
-                                <input id="telefone1" name="telefone1" type="text" data-mask="(244)-999-999-999" class="form-control required" value="{{ $encarregado->telefone1 }}">
+                                <input id="telefone1" name="telefone1" type="text" data-mask="+244999999999" class="form-control required" value="{{ $encarregado->telefone1 }}">
                             </div>
 
                             <div class="form-group">
                                 <label>Telefone 2</label>
-                                <input id="telefone2" name="telefone2" type="text" data-mask="(244)-999-999-999" class="form-control" value="{{ $encarregado->telefone2 }}">
+                                <input id="telefone2" name="telefone2" type="text" data-mask="+244999999999" class="form-control" value="{{ $encarregado->telefone2 }}">
                             </div>
 
                         </div>

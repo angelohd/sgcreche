@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Empty Page</title>
+    <title>sgcreche | as estrelinahs</title>
 
     <link href="{{ url('css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{ url('font-awesome/css/font-awesome.css')}}" rel="stylesheet">
@@ -38,7 +38,7 @@
                 <li>
                     <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="index.html">Dashboard v.1</a></li>
+                        <li><a href="{{ route('login') }}">Dashboard</a></li>
                     </ul>
                 </li>
 
@@ -56,7 +56,7 @@
                         <li><a href="{{ route('funcionarios.index') }}">Funcionarios</a></li>
                     </ul>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="{{ route('alunos.index') }}">Alunos</a></li>
+                        <li><a href="{{ route('alunos.index') }}">Criança</a></li>
                     </ul>
                     <ul class="nav nav-second-level collapse active">
                         <li><a href="{{ route('encarregados.index') }}">Encarregados</a></li>
@@ -73,6 +73,9 @@
                     </ul>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="{{ route('aluno.presnetes') }}">Saida</a></li>
+                    </ul>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{{ route('aluno.historico_entrada_saida') }}">Histórico de entrada e saida</a></li>
                     </ul>
                 </li>
 

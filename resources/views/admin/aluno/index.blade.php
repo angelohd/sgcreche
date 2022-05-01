@@ -1,5 +1,5 @@
 @extends('layout.index')
-@section('titulo', 'Alunos')
+@section('titulo', 'Crianças')
 @section('corpo')
 
     @include('admin.include.data_table')
@@ -50,7 +50,7 @@
                                     <td>
                                     <button type="button" class="btn btn-primary dim" data-toggle="modal"
                                     data-target="#edit-{{ $aluno->id }}">
-                                    <i class="fa fa-edit" ></i> Editar
+                                    <i class="fa fa-edit" ></i> Opções
                                 </button>
                                         <button type="button" class="btn btn-danger dim" data-toggle="modal"
                                             data-target="#delete-{{ $aluno->id }}">

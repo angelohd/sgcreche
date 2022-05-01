@@ -11,6 +11,12 @@ use App\Models\Movimento_Aluno;
 use App\Models\Sala;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
+// use Mail;
+
+use App\Mail\Email;
+use Twilio\Rest\Client;
 
 class ControllerAluno extends Controller
 {
@@ -180,9 +186,9 @@ class ControllerAluno extends Controller
      */
     public function edit($id)
     {
-        $aluno = Aluno::where('id','=',$id)
-        ->first();
-        return view('admin.aluno.edit',['aluno'=>$aluno]);
+        $aluno = Aluno::where('id', '=', $id)
+            ->first();
+        return view('admin.aluno.edit', ['aluno' => $aluno]);
     }
 
     /**
@@ -195,13 +201,13 @@ class ControllerAluno extends Controller
     public function update(Request $request, $id)
     {
 
-        $update_aluno = Aluno::where('id','=',$id)->update([
-            'nome'=>$request->nome,
-            'tipo_doc'=>$request->tipo_doc,
-            'numero_doc'=>$request->numero_doc,
-            'data_validade'=>$request->data_validade,
-            'data_nasc'=>$request->data_nasc,
-            'endereco'=>$request->endereco
+        $update_aluno = Aluno::where('id', '=', $id)->update([
+            'nome' => $request->nome,
+            'tipo_doc' => $request->tipo_doc,
+            'numero_doc' => $request->numero_doc,
+            'data_validade' => $request->data_validade,
+            'data_nasc' => $request->data_nasc,
+            'endereco' => $request->endereco
         ]);
         return redirect()->route('alunos.index')->with('status', 'success');
     }
@@ -212,53 +218,135 @@ class ControllerAluno extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy(Request $request, $id)
     {
         $hash = Auth::user()->password;
-        if(password_verify($request->password, $hash)){
-            if ($aluno=Aluno::where('id',$id)) {
+        if (password_verify($request->password, $hash)) {
+            if ($aluno = Aluno::where('id', $id)) {
                 $remove = $aluno->delete();
-                return redirect()->route('alunos.index')->with('status','success');
+                return redirect()->route('alunos.index')->with('status', 'success');
             }
         }
-        return redirect()->route('alunos.index')->with('status','error');
+        return redirect()->route('alunos.index')->with('status', 'error');
     }
 
-    function recilagem(){
+    function recilagem()
+    {
         $alunos = Aluno::onlyTrashed()->get();
-        return view('admin.aluno.reciclagem',['alunos'=>$alunos]);
+        return view('admin.aluno.reciclagem', ['alunos' => $alunos]);
     }
 
-    function restaurar(Request $request,$id){
+    function restaurar(Request $request, $id)
+    {
         $hash = Auth::user()->password;
-        if(password_verify($request->password, $hash)){
-           $aluno=Aluno::withTrashed()->findOrFail($id)->restore();
-           return redirect()->route('alunos.index')->with('status','success');
+        if (password_verify($request->password, $hash)) {
+            $aluno = Aluno::withTrashed()->findOrFail($id)->restore();
+            return redirect()->route('alunos.index')->with('status', 'success');
         }
-        return redirect()->route('alunos.index')->with('status','error');
+        return redirect()->route('alunos.index')->with('status', 'error');
     }
 
-    function alunos(){
+    function alunos()
+    {
         $alunos = Aluno::get();
         return view('admin.movimento.index', ['alunos' => $alunos]);
     }
 
-    function aluno_presnete($id){
-        $aluno = Movimento_Aluno::where('aluno_id','=',$id)->first();
-        if($aluno){
-            return redirect()->route('aluno.alunos')->with('status','existe');
+    function aluno_presnete($id)
+    {
+        $aluno = Movimento_Aluno::where('aluno_id', '=', $id)->first();
+        if ($aluno) {
+            return redirect()->route('aluno.alunos')->with('status', 'existe');
         }
         $entrada = Movimento_Aluno::create([
-            'aluno_id'=>$id,
-            'funcionario_id'=>Auth::user()->id
+            'aluno_id' => $id,
+            'funcionario_id' => Auth::user()->id
         ]);
 
-        return redirect()->route('aluno.alunos')->with('status','success');
+        //envio de sms qdo a crianca entrar na crece
+        $this->enviasms('saudação, o(a) menino(a) ja se encontra na creche','+244928058564');
+
+        $email = "angelohuns@gmail.com";
+        $codigo = "codigo";
+        // Mail::to($email)->send(new Email($email,$codigo));
+
+
+        //  Mail::to("angelohuns@gmail.com")->send(new Email("paramento 1","paramento 2"));
+
+
+        return redirect()->route('aluno.alunos')->with('status', 'success');
     }
 
-    function alunos_presnetes(){
-        $alunos = Movimento_Aluno::join('alunos','alunos.id','aluno_id')
-        ->get();
+    function alunos_presnetes()
+    {
+        $alunos = Movimento_Aluno::join('alunos', 'alunos.id', 'aluno_id')
+            ->select('movimento_alunos.*', 'alunos.nome', 'alunos.tipo_doc', 'alunos.numero_doc', 'alunos.id as idaluno')
+            ->get();
         return view('admin.movimento.presentes', ['alunos' => $alunos]);
+    }
+
+    function saida_aluno(Request $request, $id)
+    {
+        $sair = Movimento_Aluno::where('id', '=', $id)->update([
+            'encarregado_id' => $request->encarregado_id,
+        ]);
+        if ($aluno = Movimento_Aluno::where('id', $id)) {
+            $remove = $aluno->delete();
+        }
+
+        //envio de sms qdo a crianca entrar na crece
+        $this->enviasms('saudação, o(a) menino(a) ja saiu da creche','+244928058564');
+
+        $email = "angelohuns@gmail.com";
+        $codigo = "codigo";
+        // Mail::to($email)->send(new Email($email,$codigo));
+
+        return redirect()->route('aluno.presnetes')->with('status', 'success');
+    }
+
+    function encarregados(Request $request)
+    {
+        $dados = "";
+        $encarregados = Encarregado_has_Aluno::join('encarregados', 'encarregados.id', 'encarregado_id')
+            ->join('alunos', 'alunos.id', 'aluno_id')
+            ->where('alunos.id', '=', $request->id)
+            ->select('encarregados.*')
+            ->get();
+        foreach ($encarregados as $encarregado) {
+            $dados .= "<option value='$encarregado->id'>$encarregado->nome</option>";
+        }
+        echo $dados;
+        return;
+    }
+
+    function historico_entrada_saida(){
+        $alunos = Movimento_Aluno::join('alunos','alunos.id','aluno_id')
+        ->join('encarregados','encarregados.id','encarregado_id')
+        ->select('movimento_alunos.*','alunos.nome as crianca','encarregados.nome as encarregado')
+        ->onlyTrashed()->get();
+        return view('admin.movimento.historico',['alunos'=>$alunos]);
+        // dd($alunos);
+    }
+
+    //funcao para enviar sms
+    private function enviasms($mensagem, $receptor)
+    {
+        // $account_sid = getenv('TWILIO_SID');
+        // $auth_token = getenv('TWILIO_AUTH_TOKEN');
+        // $twilio_number = getenv('TWILIO_NUMBER');
+
+        // $account_sid = getenv('APP_NAME');
+        // $auth_token = ENV('TWILIO_AUTH_TOKEN');
+        // $twilio_number = ENV('TWILIO_NUMBER');
+
+        $account_sid ='ACbba2658a53e19e441af50df601f29b8b';
+        $auth_token = 'dfd7809b888d9eeb3f2961faa659fa36';
+        $twilio_number = '+14785004950';
+
+        // dd($account_sid);
+
+        $client = new Client($account_sid, $auth_token);
+        $client->messages->create($receptor,
+            ['from' => $twilio_number, 'body' => $mensagem] );
     }
 }
