@@ -8,7 +8,9 @@
         <div class="ibox ">
             <div class="ibox-title">
                 {{-- <h5>Basic Data Tables example with responsive plugin</h5> --}}
-                <a href="{{ route('alunos.index') }}" class="btn btn-primary"> Crianças</a>
+                @can('list_crianca')
+                    <a href="{{ route('alunos.index') }}" class="btn btn-primary"> Crianças</a>
+                @endcan
             </div>
             <div class="ibox-content">
 
@@ -31,15 +33,19 @@
                                         {{ $aluno->numero_doc }}
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary dim" data-toggle="modal"
-                                            data-target="#delete-{{ $aluno->id }}">
-                                            <i class="fa fa-level-up"></i> Restaurar
-                                        </button>
+                                        @can('restor_crianca')
+                                            <button type="button" class="btn btn-primary dim" data-toggle="modal"
+                                                data-target="#delete-{{ $aluno->id }}">
+                                                <i class="fa fa-level-up"></i> Restaurar
+                                            </button>
+                                        @endcan
+
                                     </td>
 
 
                                     <!-- remover aluno -->
-                                    <div class="modal inmodal" id="delete-{{ $aluno->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal inmodal" id="delete-{{ $aluno->id }}" tabindex="-1" role="dialog"
+                                        aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content animated bounceInRight">
                                                 <div class="modal-header">
@@ -50,11 +56,13 @@
                                                     <small class="font-bold">{{ $aluno->nome }}.</small>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{ Route('aluno.restaurar',$aluno->id) }}">
+                                                    <form method="post"
+                                                        action="{{ Route('aluno.restaurar', $aluno->id) }}">
                                                         @csrf
-                                                       <input type="password" class="form-control" placeholder="Palavra passe" required name="password">
-                                                       <br>
-                                                       <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                        <input type="password" class="form-control"
+                                                            placeholder="Palavra passe" required name="password">
+                                                        <br>
+                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
                                                     </form>
 
                                                 </div>

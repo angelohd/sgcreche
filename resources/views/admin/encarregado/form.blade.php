@@ -17,7 +17,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label>Nome *</label>
-                                <input id="nome" name="nome" type="text" class="form-control required" value="{{ $encarregado->nome }}">
+                                <input id="nome" name="nome" type="text" class="form-control required" value="{{ $encarregado->nome }}" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Identificação *</label>

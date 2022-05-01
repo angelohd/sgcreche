@@ -7,8 +7,9 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                {{-- <h5>Basic Data Tables example with responsive plugin</h5> --}}
-                <a href="{{ route('ano_lectivos.index') }}" class="btn btn-info">Ver Ano lectivos</a>
+                @can('list_ano_lectivo')
+                    <a href="{{ route('ano_lectivos.index') }}" class="btn btn-info">Ver Ano lectivos</a>
+                @endcan
             </div>
             <div class="ibox-content">
 
@@ -27,14 +28,18 @@
                                         {{ $ano_lectivo->ano_lectivo }}
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary dim" data-toggle="modal"
-                                            data-target="#restaurar-{{ $ano_lectivo->id }}">
-                                            <i class="fa fa-level-up"></i> Restaurar
-                                        </button>
+                                        @can('restor_ano_lectivo')
+                                            <button type="button" class="btn btn-primary dim" data-toggle="modal"
+                                                data-target="#restaurar-{{ $ano_lectivo->id }}">
+                                                <i class="fa fa-level-up"></i> Restaurar
+                                            </button>
+                                        @endcan
+
                                     </td>
 
                                     <!-- Restaurar ano lectivo -->
-                                    <div class="modal inmodal" id="restaurar-{{ $ano_lectivo->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal inmodal" id="restaurar-{{ $ano_lectivo->id }}" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content animated bounceInRight">
                                                 <div class="modal-header">
@@ -45,11 +50,13 @@
                                                     <small class="font-bold">{{ $ano_lectivo->ano_lectivo }}.</small>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{ Route('ano_lectivo.restaurar',$ano_lectivo->id) }}">
+                                                    <form method="post"
+                                                        action="{{ Route('ano_lectivo.restaurar', $ano_lectivo->id) }}">
                                                         @csrf
-                                                       <input type="password" class="form-control" placeholder="Palavra passe" required name="password">
-                                                       <br>
-                                                       <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                        <input type="password" class="form-control"
+                                                            placeholder="Palavra passe" required name="password">
+                                                        <br>
+                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
                                                     </form>
 
                                                 </div>

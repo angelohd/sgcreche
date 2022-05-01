@@ -31,7 +31,11 @@
                                         {{ $encarregado->email }}
                                     </td>
                                     <td>
+                                        @can('edit_encarregado')
                                         <a href="{{ route('encarregados.edit',$encarregado->id) }}"  class="btn btn-primary dim"><i class="fa fa-edit"></i> Editar</a>
+
+                                        @endcan
+                                    </td>
                                 </tr>
 
                             @empty

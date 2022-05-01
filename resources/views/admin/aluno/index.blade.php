@@ -8,8 +8,13 @@
         <div class="ibox ">
             <div class="ibox-title">
                 {{-- <h5>Basic Data Tables example with responsive plugin</h5> --}}
-                <a href="{{ route('alunos.create') }}" class="btn btn-primary">Registar aluno</a>
-                / <a href="{{ route('aluno.recilagem') }}" class="btn btn-dark">Reciclagem</a>
+                @can('add_crianca')
+                    <a href="{{ route('alunos.create') }}" class="btn btn-primary">Registar criança</a>
+                    /
+                @endcan
+                @can('reciclagem_crianca')
+                    <a href="{{ route('aluno.recilagem') }}" class="btn btn-dark">Reciclagem</a>
+                @endcan
             </div>
             <div class="ibox-content">
 
@@ -48,19 +53,23 @@
                                         {{ $aluno->endereco }}
                                     </td>
                                     <td>
-                                    <button type="button" class="btn btn-primary dim" data-toggle="modal"
-                                    data-target="#edit-{{ $aluno->id }}">
-                                    <i class="fa fa-edit" ></i> Opções
-                                </button>
-                                        <button type="button" class="btn btn-danger dim" data-toggle="modal"
-                                            data-target="#delete-{{ $aluno->id }}">
-                                            <i class="fa fa-trash-o"></i> Remover
+                                        <button type="button" class="btn btn-primary dim" data-toggle="modal"
+                                            data-target="#edit-{{ $aluno->id }}">
+                                            <i class="fa fa-edit"></i> Opções
                                         </button>
+                                        @can('delete_crianca')
+                                            <button type="button" class="btn btn-danger dim" data-toggle="modal"
+                                                data-target="#delete-{{ $aluno->id }}">
+                                                <i class="fa fa-trash-o"></i> Remover
+                                            </button>
+                                        @endcan
+
                                     </td>
 
 
                                     <!-- remover aluno -->
-                                    <div class="modal inmodal" id="delete-{{ $aluno->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal inmodal" id="delete-{{ $aluno->id }}" tabindex="-1" role="dialog"
+                                        aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content animated bounceInRight">
                                                 <div class="modal-header">
@@ -71,12 +80,14 @@
                                                     <small class="font-bold">{{ $aluno->nome }}.</small>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{ Route('alunos.destroy',$aluno->id) }}">
+                                                    <form method="post"
+                                                        action="{{ Route('alunos.destroy', $aluno->id) }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                       <input type="password" class="form-control" placeholder="Palavra passe" required name="password">
-                                                       <br>
-                                                       <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                        <input type="password" class="form-control"
+                                                            placeholder="Palavra passe" required name="password">
+                                                        <br>
+                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
                                                     </form>
 
                                                 </div>
@@ -86,19 +97,28 @@
                                     <!-- fim de remover ano lectivo -->
 
                                     <!-- editar aluno -->
-                                    <div class="modal inmodal" id="edit-{{ $aluno->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal inmodal" id="edit-{{ $aluno->id }}" tabindex="-1" role="dialog"
+                                        aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content animated bounceInRight">
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal"><span
                                                             aria-hidden="true">&times;</span><span
                                                             class="sr-only">Close</span></button>
-                                                    <h4 class="modal-title">Pretende editar os dados deste aluno?</h4>
-                                                    <small class="font-bold">{{ $aluno->nome }}.</small>
+                                                    <h4 class="modal-title">O que deseja fazer?</h4>
+                                                    <small class="font-bold">Nome: {{ $aluno->nome }}.</small>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <a href="{{ route('alunos.edit',$aluno->id) }}" class="btn btn-primary">Editar</a> /
-                                                    <a href="{{ route('alunos.show',$aluno->id) }}" class="btn btn-primary">Detalhe</a>
+                                                    @can('edit_crianca')
+                                                        <a href="{{ route('alunos.edit', $aluno->id) }}"
+                                                            class="btn btn-primary">Editar</a> /
+                                                    @endcan
+                                                    @can('view_crianca')
+                                                        <a href="{{ route('alunos.show', $aluno->id) }}"
+                                                            class="btn btn-primary">Detalhe</a>
+                                                    @endcan
+
+
                                                 </div>
                                             </div>
                                         </div>

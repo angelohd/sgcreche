@@ -7,8 +7,9 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                {{-- <h5>Basic Data Tables example with responsive plugin</h5> --}}
-                <a href="{{ route('funcionarios.index') }}" class="btn btn-primary"> Funcionarios</a>
+                @can('list_funcionario')
+                <a href="{{ route('funcionarios.index') }}" class="btn btn-info">Funcionarios</a>
+                @endcan
             </div>
             <div class="ibox-content">
 
@@ -31,10 +32,13 @@
                                         {{ $funcionario->email }}
                                     </td>
                                     <td>
+                                        @can('restor_funcionario')
                                         <button type="button" class="btn btn-primary dim" data-toggle="modal"
                                             data-target="#delete-{{ $funcionario->id }}">
                                             <i class="fa fa-level-up"></i> Restaurar
                                         </button>
+                                        @endcan
+
                                     </td>
 
 

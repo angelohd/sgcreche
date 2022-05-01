@@ -7,8 +7,9 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                {{-- <h5>Basic Data Tables example with responsive plugin</h5> --}}
+              @can('list_sala')
                 <a href="{{ route('salas.index') }}" class="btn btn-info">Ver sala</a>
+                @endcan
             </div>
             <div class="ibox-content">
 
@@ -27,10 +28,13 @@
                                         {{ $sala->sala }}
                                     </td>
                                     <td>
+                                        @can('restor_sala')
                                         <button type="button" class="btn btn-primary dim" data-toggle="modal"
                                             data-target="#restaurar-{{ $sala->id }}">
                                             <i class="fa fa-level-up"></i> Restaurar
                                         </button>
+                                        @endcan
+
                                     </td>
 
                                     <!-- Restaurar ano lectivo -->

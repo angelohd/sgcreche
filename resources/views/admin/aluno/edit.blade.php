@@ -7,17 +7,20 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <a href="{{ route('alunos.index') }}" class="btn btn-info">Crianças</a>
+                @can('list_crianca')
+                    <a href="{{ route('alunos.index') }}" class="btn btn-primary"> Crianças</a>
+                @endcan
             </div>
             <div class="ibox-content">
-                <form method="POST" action="{{ route('alunos.update',$aluno->id) }}">
+                <form method="POST" action="{{ route('alunos.update', $aluno->id) }}">
                     @csrf
                     @method('PUT')
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Nome *</label>
-                                <input id="nome" name="nome" type="text" class="form-control required" value="{{ $aluno->nome }}">
+                                <input id="nome" name="nome" type="text" class="form-control required"
+                                    value="{{ $aluno->nome }}">
                             </div>
                             <div class="form-group">
                                 <label>Tipo de Identificação *</label>
@@ -29,7 +32,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Numero de Identificação *</label>
-                                <input id="numero_doc" name="numero_doc" type="text" class="form-control required" value="{{ $aluno->numero_doc }}">
+                                <input id="numero_doc" name="numero_doc" type="text" class="form-control required"
+                                    value="{{ $aluno->numero_doc }}">
                             </div>
 
                         </div>
@@ -37,11 +41,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Data de Validade *</label>
-                                <input id="data_validade" name="data_validade" type="date" class="form-control required" value="{{ $aluno->data_validade }}">
+                                <input id="data_validade" name="data_validade" type="date" class="form-control required"
+                                    value="{{ $aluno->data_validade }}">
                             </div>
                             <div class="form-group">
                                 <label>Data de Nascimento *</label>
-                                <input id="data_nasc" name="data_nasc" type="date" class="form-control required" value="{{ $aluno->data_nasc }}">
+                                <input id="data_nasc" name="data_nasc" type="date" class="form-control required"
+                                    value="{{ $aluno->data_nasc }}">
                             </div>
                             <div class="form-group">
                                 <label>Endereço *</label>

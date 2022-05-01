@@ -5,7 +5,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label>Nome *</label>
-                <input id="nome" name="nome_aluno" type="text" class="form-control required">
+                <input id="nome" name="nome_aluno" type="text" class="form-control required" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
             </div>
             <div class="form-group">
                 <label>Tipo de Identificação *</label>
@@ -47,7 +47,7 @@
         <div class="col-lg-4">
             <div class="form-group">
                 <label>Nome *</label>
-                <input id="nome_encarregado_1" name="nome_encarregado_1" type="text" class="form-control required">
+                <input id="nome_encarregado_1" name="nome_encarregado_1" type="text" class="form-control required" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
             </div>
             <div class="form-group">
                 <label>Tipo de Identificação *</label>
@@ -105,7 +105,7 @@
         <div class="col-lg-4">
             <div class="form-group">
                 <label>Nome</label>
-                <input id="nome_encarregado_2" name="nome_encarregado_2" type="text" class="form-control">
+                <input id="nome_encarregado_2" name="nome_encarregado_2" type="text" class="form-control" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
             </div>
             <div class="form-group">
                 <label>Tipo de Identificação</label>

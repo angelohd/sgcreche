@@ -14,13 +14,12 @@
                     </div>
                     <div class="form-group">
                         <label>Numero de Identificação:</label>
-                        <input type="text" class="form-control"
-                            value="{{ $funcionario->numero_doc }}">
+                        <input type="text" class="form-control" value="{{ $funcionario->numero_doc }}">
                     </div>
                     <div class="form-group">
                         <label>Data de Validade:</label>
-                        <input type="text" class="form-control required"
-                            required value="{{ $funcionario->data_validade }}">
+                        <input type="text" class="form-control required" required
+                            value="{{ $funcionario->data_validade }}">
                     </div>
                 </div>
 
@@ -28,19 +27,16 @@
 
                     <div class="form-group">
                         <label>Telefone 1:</label>
-                        <input type="text" class="form-control" required
-                            value="{{ $funcionario->telefone1 }}">
+                        <input type="text" class="form-control" required value="{{ $funcionario->telefone1 }}">
                     </div>
 
                     <div class="form-group">
                         <label>Telefone 2:</label>
-                        <input  type="text" class="form-control"
-                            value="{{ $funcionario->telefone2 }}">
+                        <input type="text" class="form-control" value="{{ $funcionario->telefone2 }}">
                     </div>
                     <div class="form-group">
                         <label>E-Mail:</label>
-                        <input type="email" class="form-control"
-                            value="{{ $funcionario->email }}">
+                        <input type="email" class="form-control" value="{{ $funcionario->email }}">
                     </div>
                 </div>
 
@@ -51,8 +47,7 @@
                     </div>
                     <div class="form-group">
                         <label>Função:</label>
-                        <input type="email" class="form-control"
-                            value="{{ $funcionario->funcao }}">
+                        <input type="email" class="form-control" value="{{ $funcionario->funcao }}">
 
                     </div>
 
@@ -70,7 +65,7 @@
                     <div class="form-group">
                         <label>Nome *</label>
                         <input id="nome" name="nome" type="text" class="form-control" required
-                            value="{{ $funcionario->nome ?? old('nome') }}">
+                            value="{{ $funcionario->nome ?? old('nome') }}" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
                     </div>
                     <div class="form-group">
                         <label>Tipo de Identificação *</label>

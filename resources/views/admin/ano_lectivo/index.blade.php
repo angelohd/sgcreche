@@ -7,11 +7,14 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                {{-- <h5>Basic Data Tables example with responsive plugin</h5> --}}
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    Registar ano lectivo
-                </button>
-                / <a href="{{ route('ano_lectivo.recilagem') }}" class="btn btn-dark">Reciclagem</a>
+               @can('add_ano_lectivo')
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                Registar ano lectivo
+            </button>
+               @endcan
+               @can('reciclagem_ano_lectivo')
+               / <a href="{{ route('ano_lectivo.recilagem') }}" class="btn btn-dark">Reciclagem</a>
+               @endcan
                 <!-- Registar ano lectivo -->
                 <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
@@ -49,14 +52,20 @@
                                         {{ $ano_lectivo->ano_lectivo }}
                                     </td>
                                     <td>
+                                        @can('edit_ano_lectivo')
                                         <button type="button" class="btn btn-primary dim" data-toggle="modal"
                                             data-target="#myModal-{{ $ano_lectivo->id }}">
                                             <i class="fa fa-edit"></i> Editar
                                         </button>
+                                        @endcan
+                                        @can('delete_ano_lectivo')
                                         <button type="button" class="btn btn-danger dim" data-toggle="modal"
-                                            data-target="#delete-{{ $ano_lectivo->id }}">
-                                            <i class="fa fa-trash-o"></i> Remover
-                                        </button>
+                                        data-target="#delete-{{ $ano_lectivo->id }}">
+                                        <i class="fa fa-trash-o"></i> Remover
+                                    </button>
+
+                                        @endcan
+
                                     </td>
                                     <!-- editar ano lectivo -->
                                     <div class="modal inmodal" id="myModal-{{ $ano_lectivo->id }}" tabindex="-1" role="dialog" aria-hidden="true">
