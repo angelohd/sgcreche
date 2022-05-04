@@ -13,6 +13,7 @@ use Spatie\Permission\Models\Permission;
 
 use App\Models\Funcao;
 use App\Models\Funcionario;
+use App\Models\Sala;
 
 class myseedr extends Seeder
 {
@@ -101,6 +102,38 @@ class myseedr extends Seeder
         $role_admin->givePermissionTo('saida_crianca');
         $role_admin->givePermissionTo('historico_crianca');
 
+        $role_recepcionista = Role::create(['name' => 'Recepcionista']);
+        $role_recepcionista->givePermissionTo('list_crianca');
+        $role_recepcionista->givePermissionTo('view_crianca');
+
+        $role_recepcionista->givePermissionTo('entrada_crianca');
+        $role_recepcionista->givePermissionTo('saida_crianca');
+        $role_recepcionista->givePermissionTo('historico_crianca');
+
+        $role_gestor = Role::create(['name' => 'Gestor']);
+        $role_gestor->givePermissionTo('list_funcionario');
+        $role_gestor->givePermissionTo('add_funcionario');
+        $role_gestor->givePermissionTo('edit_funcionario');
+        $role_gestor->givePermissionTo('reciclagem_funcionario');
+        $role_gestor->givePermissionTo('view_funcionario');
+        $role_gestor->givePermissionTo('restor_funcionario');
+
+        $role_gestor->givePermissionTo('list_crianca');
+        $role_gestor->givePermissionTo('add_crianca');
+        $role_gestor->givePermissionTo('edit_crianca');
+        $role_gestor->givePermissionTo('reciclagem_crianca');
+        $role_gestor->givePermissionTo('view_crianca');
+        $role_gestor->givePermissionTo('restor_crianca');
+
+        $role_gestor->givePermissionTo('list_encarregado');
+        $role_gestor->givePermissionTo('edit_encarregado');
+        $role_gestor->givePermissionTo('agregar_encarregado');
+
+        $role_gestor->givePermissionTo('entrada_crianca');
+        $role_gestor->givePermissionTo('saida_crianca');
+        $role_gestor->givePermissionTo('historico_crianca');
+
+
 
 
         $save_funcao = Funcao::create([
@@ -136,5 +169,13 @@ class myseedr extends Seeder
             'ano_lectivo' => '2021/2022',
             'funcionario_id' => 1
         ]);
+        $i = 1;
+        while ($i <= 10) {
+            $sala = Sala::create([
+                'sala' => $i,
+                'funcionario_id' => 1
+            ]);
+            $i++;
+        }
     }
 }

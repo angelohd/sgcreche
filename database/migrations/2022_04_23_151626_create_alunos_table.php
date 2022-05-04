@@ -16,7 +16,7 @@ class CreateAlunosTable extends Migration
         Schema::create('alunos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->enum('tipo_doc',['Passaporte','Bilhete de Identidade','Outro']);
+            $table->string('tipo_doc');
             $table->string('numero_doc');
             $table->date('data_validade');
             $table->date('data_nasc');

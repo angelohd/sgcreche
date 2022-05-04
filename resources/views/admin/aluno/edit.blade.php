@@ -1,3 +1,5 @@
+@can('edit_crianca')
+
 @extends('layout.index')
 @section('titulo', 'Editar Criança')
 @section('corpo')
@@ -67,3 +69,4 @@
         </div>
     </div>
 @endsection
+@endcan

@@ -1,3 +1,5 @@
+@can('add_crianca')
+
 @extends('layout.index')
 @section('titulo', 'Registar Criança')
 @section('corpo')
@@ -22,3 +24,4 @@
     </div>
 
 @endsection
+@endcan

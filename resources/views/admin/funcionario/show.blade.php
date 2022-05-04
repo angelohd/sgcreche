@@ -1,3 +1,5 @@
+@can('view_funcionario')
+
 @extends('layout.index')
 @section('titulo', 'Detalhes do funcionario')
 @section('corpo')
@@ -17,3 +19,4 @@
         </div>
     </div>
 @endsection
+@endcan

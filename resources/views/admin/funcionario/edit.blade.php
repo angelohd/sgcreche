@@ -1,3 +1,5 @@
+@can('edit_funcionario')
+
 @extends('layout.index')
 @section('titulo', 'Editar funcionario')
 @section('corpo')
@@ -21,3 +23,4 @@
         </div>
     </div>
 @endsection
+@endcan

@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\Email;
 use Twilio\Rest\Client;
 
+use App\Http\Controllers\Controllersms;
+
+use App\Imports\Criancas;
+
+
+
 class ControllerAluno extends Controller
 {
     /**
@@ -263,16 +269,17 @@ class ControllerAluno extends Controller
             'funcionario_id' => Auth::user()->id
         ]);
 
+        $encarregado = Encarregado_has_Aluno::join('encarregados','encarregados.id','encarregado_id')
+        ->join('alunos','alunos.id','aluno_id')
+        ->where('alunos.id','=',$id)
+        ->select('encarregados.nome as pai','encarregados.telefone1 as telefone','alunos.nome as crianca')
+        ->first();
+
         //envio de sms qdo a crianca entrar na crece
-        $this->enviasms('saudação, o(a) menino(a) ja se encontra na creche','+244928058564');
+        $sms = new Controllersms();
+        $sms->enviasms('saudação Sr(a) '.$encarregado->pai.', o(a) menino(a) '.$encarregado->crianca.' já se encontra na creche',$encarregado->telefone);
 
-        $email = "angelohuns@gmail.com";
-        $codigo = "codigo";
-        // Mail::to($email)->send(new Email($email,$codigo));
-
-
-        //  Mail::to("angelohuns@gmail.com")->send(new Email("paramento 1","paramento 2"));
-
+        // $sms->viawathisapp('saudação Sr(a) '.$encarregado->pai.', o(a) menino(a) '.$encarregado->crianca.' já se encontra na creche',$encarregado->telefone);
 
         return redirect()->route('aluno.alunos')->with('status', 'success');
     }
@@ -287,6 +294,13 @@ class ControllerAluno extends Controller
 
     function saida_aluno(Request $request, $id)
     {
+        $crianca = Movimento_Aluno::where('id','=',$id)->first();
+        $encarregado = Encarregado_has_Aluno::join('encarregados','encarregados.id','encarregado_id')
+        ->join('alunos','alunos.id','aluno_id')
+        ->where('alunos.id','=',$crianca->aluno_id)
+        ->select('encarregados.nome as pai','encarregados.telefone1 as telefone','alunos.nome as crianca')
+        ->first();
+
         $sair = Movimento_Aluno::where('id', '=', $id)->update([
             'encarregado_id' => $request->encarregado_id,
         ]);
@@ -295,11 +309,17 @@ class ControllerAluno extends Controller
         }
 
         //envio de sms qdo a crianca entrar na crece
-        $this->enviasms('saudação, o(a) menino(a) ja saiu da creche','+244928058564');
+
+        //envio de sms qdo a crianca entrar na crece
+        $sms = new Controllersms();
+        $sms->enviasms('saudação Sr(a) '. $encarregado->pai .', o(a) menino(a) '.$encarregado->crianca.' já saiu na creche',$encarregado->telefone);
+        // $this->enviasms('saudação, o(a) menino(a) ja saiu da creche','+244928058564');
+        // $sms = new Controllersms();
+        // $sms->enviasms('saudação, o(a) menino(a) ja saiu da creche','+244928058564');
 
         $email = "angelohuns@gmail.com";
         $codigo = "codigo";
-        // Mail::to($email)->send(new Email($email,$codigo));
+        Mail::to($email)->send(new Email($email,$codigo));
 
         return redirect()->route('aluno.presnetes')->with('status', 'success');
     }
@@ -329,24 +349,29 @@ class ControllerAluno extends Controller
     }
 
     //funcao para enviar sms
-    private function enviasms($mensagem, $receptor)
-    {
-        // $account_sid = getenv('TWILIO_SID');
-        // $auth_token = getenv('TWILIO_AUTH_TOKEN');
-        // $twilio_number = getenv('TWILIO_NUMBER');
+    // private function enviasms($mensagem, $receptor)
+    // {
+    //     // $account_sid = getenv('TWILIO_SID');
+    //     // $auth_token = getenv('TWILIO_AUTH_TOKEN');
+    //     // $twilio_number = getenv('TWILIO_NUMBER');
 
-        // $account_sid = getenv('APP_NAME');
-        // $auth_token = ENV('TWILIO_AUTH_TOKEN');
-        // $twilio_number = ENV('TWILIO_NUMBER');
+    //     // $account_sid = getenv('APP_NAME');
+    //     // $auth_token = ENV('TWILIO_AUTH_TOKEN');
+    //     // $twilio_number = ENV('TWILIO_NUMBER');
 
-        $account_sid ='ACbba2658a53e19e441af50df601f29b8b';
-        $auth_token = 'dfd7809b888d9eeb3f2961faa659fa36';
-        $twilio_number = '+14785004950';
+    //     $account_sid ='ACbba2658a53e19e441af50df601f29b8b';
+    //     $auth_token = '0a9cf53149d57208c6f9b2ebabf6c6a8';
+    //     $twilio_number = '+14785004950';
 
-        // dd($account_sid);
+    //     // dd($account_sid);
 
-        $client = new Client($account_sid, $auth_token);
-        $client->messages->create($receptor,
-            ['from' => $twilio_number, 'body' => $mensagem] );
+    //     $client = new Client($account_sid, $auth_token);
+    //     $client->messages->create($receptor,
+    //         ['from' => $twilio_number, 'body' => $mensagem] );
+    // }
+
+    function importar_crianca(Request $request){
+        Excel::import(new Criancas,request()->file('your_file'));
     }
+
 }

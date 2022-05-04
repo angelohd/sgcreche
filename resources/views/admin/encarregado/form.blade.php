@@ -1,3 +1,5 @@
+@can('edit_encarregado')
+
 @extends('layout.index')
 @section('titulo', 'Editar Encarregado')
 @section('corpo')
@@ -72,3 +74,4 @@
         </div>
     </div>
 @endsection
+@endcan

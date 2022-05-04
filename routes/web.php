@@ -8,6 +8,7 @@ use App\Http\Controllers\ControllerFuncionario;
 use App\Http\Controllers\ControllerSala;
 use App\Http\Controllers\ControllerUtilizador;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +22,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/email',[ControllerEnviaEmail::class,'email'])->name('email');
-// Route::post('/enviar',[ControllerEnviaEmail::class,'enviar'])->name('enviar');
+Route::get('/email',[ControllerEnviaEmail::class,'email'])->name('email');
+Route::post('/enviar',[ControllerEnviaEmail::class,'enviar'])->name('enviar');
+
+// Route::get('/email',function(){
+//     Mail::send('admin.email.teste',['Senha'=>'minha senha'],function($m){
+//         $m->from('angelohuns@gmail.com','angelo');
+//         $m->to('geral.info@wisekumbu.com');
+//     });
+// });
 
 Route::get('/', function () {
 
@@ -35,7 +43,7 @@ Route::get('/', function () {
 
 Route::post('/iniciar/sessao', [ControllerUtilizador::class, 'iniciar_sessao'])->name('iniciar_sessao');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','funcionario'])->group(function () {
     Route::prefix('creche')->group(function () {
 
         Route::get('bem/vindo', [ControllerUtilizador::class, 'index'])->name('logado');
@@ -57,6 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('funcionario')->name('funcionario.')->group(function () {
             Route::get('recilagem', [ControllerFuncionario::class, 'recilagem'])->name('recilagem');
             Route::post('restaurar/{id}', [ControllerFuncionario::class, 'restaurar'])->name('restaurar');
+            Route::get('perfil/funcionario/{id}',[ControllerFuncionario::class,'perfil'])->name('perfil');
         });
 
         Route::resource('alunos', ControllerAluno::class);

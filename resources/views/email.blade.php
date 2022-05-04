@@ -1,6 +1,7 @@
 <html>
-    <form action="{{ route('enviar') }}" method="POST">
+    <form action="{{ route('enviar') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <button type="submit">Enviar email</button>
+        <input type="file" name="file" required>
+        <button type="submit">exportar do excel</button>
     </form>
 </html>

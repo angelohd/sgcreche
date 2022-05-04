@@ -1,5 +1,7 @@
-@extends('layout.index')
-@section('titulo', 'Ano Lectivo')
+@can('list_ano_lectivo')
+
+    @extends('layout.index')
+    @section('titulo', 'Ano Lectivo')
 @section('corpo')
 
     @include('admin.include.data_table')
@@ -7,14 +9,14 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-               @can('add_ano_lectivo')
-               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                Registar ano lectivo
-            </button>
-               @endcan
-               @can('reciclagem_ano_lectivo')
-               / <a href="{{ route('ano_lectivo.recilagem') }}" class="btn btn-dark">Reciclagem</a>
-               @endcan
+                @can('add_ano_lectivo')
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        Registar ano lectivo
+                    </button>
+                @endcan
+                @can('reciclagem_ano_lectivo')
+                    / <a href="{{ route('ano_lectivo.recilagem') }}" class="btn btn-dark">Reciclagem</a>
+                @endcan
                 <!-- Registar ano lectivo -->
                 <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
@@ -53,22 +55,22 @@
                                     </td>
                                     <td>
                                         @can('edit_ano_lectivo')
-                                        <button type="button" class="btn btn-primary dim" data-toggle="modal"
-                                            data-target="#myModal-{{ $ano_lectivo->id }}">
-                                            <i class="fa fa-edit"></i> Editar
-                                        </button>
+                                            <button type="button" class="btn btn-primary dim" data-toggle="modal"
+                                                data-target="#myModal-{{ $ano_lectivo->id }}">
+                                                <i class="fa fa-edit"></i> Editar
+                                            </button>
                                         @endcan
                                         @can('delete_ano_lectivo')
-                                        <button type="button" class="btn btn-danger dim" data-toggle="modal"
-                                        data-target="#delete-{{ $ano_lectivo->id }}">
-                                        <i class="fa fa-trash-o"></i> Remover
-                                    </button>
-
+                                            <button type="button" class="btn btn-danger dim" data-toggle="modal"
+                                                data-target="#delete-{{ $ano_lectivo->id }}">
+                                                <i class="fa fa-trash-o"></i> Remover
+                                            </button>
                                         @endcan
 
                                     </td>
                                     <!-- editar ano lectivo -->
-                                    <div class="modal inmodal" id="myModal-{{ $ano_lectivo->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal inmodal" id="myModal-{{ $ano_lectivo->id }}" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content animated bounceInRight">
                                                 <div class="modal-header">
@@ -78,7 +80,8 @@
                                                     <h4 class="modal-title">Editar ano lectivo</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{ Route('ano_lectivos.update',$ano_lectivo->id) }}">
+                                                    <form method="post"
+                                                        action="{{ Route('ano_lectivos.update', $ano_lectivo->id) }}">
                                                         @method("PUT")
                                                         @include('admin.ano_lectivo.form')
                                                     </form>
@@ -90,7 +93,8 @@
                                     <!-- fim de editar ano lectivo -->
 
                                     <!-- remover ano lectivo -->
-                                    <div class="modal inmodal" id="delete-{{ $ano_lectivo->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal inmodal" id="delete-{{ $ano_lectivo->id }}" tabindex="-1"
+                                        role="dialog" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content animated bounceInRight">
                                                 <div class="modal-header">
@@ -101,12 +105,14 @@
                                                     <small class="font-bold">{{ $ano_lectivo->ano_lectivo }}.</small>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{ Route('ano_lectivos.destroy',$ano_lectivo->id) }}">
+                                                    <form method="post"
+                                                        action="{{ Route('ano_lectivos.destroy', $ano_lectivo->id) }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                       <input type="password" class="form-control" placeholder="Palavra passe" required name="password">
-                                                       <br>
-                                                       <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                        <input type="password" class="form-control"
+                                                            placeholder="Palavra passe" required name="password">
+                                                        <br>
+                                                        <button type="submit" class="btn btn-danger">Confirmar</button>
                                                     </form>
 
                                                 </div>
@@ -128,3 +134,4 @@
         </div>
     </div>
 @endsection
+@endcan

@@ -40,6 +40,7 @@
                                 class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse">
                             <li><a href="{{ route('login') }}">Dashboard</a></li>
+                            <li><a href="{{ route('funcionario.perfil',Auth::user()->id) }}">Meu Perfil</a></li>
                         </ul>
                     </li>
 

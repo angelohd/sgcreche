@@ -1,3 +1,5 @@
+@can('agregar_encarregado')
+
 @extends('layout.index')
 @section('titulo', 'Agregar encarregado')
 @section('corpo')
@@ -95,3 +97,4 @@
         }
     </script>
 @endsection
+@endcan

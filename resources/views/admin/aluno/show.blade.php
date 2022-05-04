@@ -1,3 +1,5 @@
+@can('view_crianca')
+
 @extends('layout.index')
 @section('titulo', 'Detalhes da Criança')
 @section('corpo')
@@ -17,3 +19,4 @@
         </div>
     </div>
 @endsection
+@endcan

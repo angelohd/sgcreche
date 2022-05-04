@@ -1,5 +1,7 @@
-@extends('layout.index')
-@section('titulo', 'Crianças')
+@can('list_crianca')
+
+    @extends('layout.index')
+    @section('titulo', 'Crianças')
 @section('corpo')
 
     @include('admin.include.data_table')
@@ -10,7 +12,31 @@
                 {{-- <h5>Basic Data Tables example with responsive plugin</h5> --}}
                 @can('add_crianca')
                     <a href="{{ route('alunos.create') }}" class="btn btn-primary">Registar criança</a>
-                    /
+                    / <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importe">
+                        <i class="fa fa-edit"></i> Importar via xml
+                    </button> /
+                    <div class="modal inmodal" id="importe" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content animated bounceInRight">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span
+                                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title">Importar apartie do fixheiro xml</h4>
+
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('enviar') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <input type="file" name="file" required class="control-form">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary dim">exportar do excel</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endcan
                 @can('reciclagem_crianca')
                     <a href="{{ route('aluno.recilagem') }}" class="btn btn-dark">Reciclagem</a>
@@ -139,3 +165,4 @@
     </div>
 
 @endsection
+@endcan

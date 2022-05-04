@@ -1,3 +1,5 @@
+@can('reciclagem_crianca')
+
 @extends('layout.index')
 @section('titulo', 'Reciclagem')
 @section('corpo')
@@ -84,3 +86,4 @@
     </div>
 
 @endsection
+@endcan

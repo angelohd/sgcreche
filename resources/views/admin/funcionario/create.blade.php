@@ -1,3 +1,5 @@
+@can('add_funcionario')
+
 @extends('layout.index')
 @section('titulo', 'Registar Funcionario')
 @section('corpo')
@@ -20,3 +22,4 @@
         </div>
     </div>
 @endsection
+@endcan

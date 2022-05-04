@@ -1,3 +1,5 @@
+@can('list_encarregado')
+
 @extends('layout.index')
 @section('titulo', 'Encarregadosonarios')
 @section('corpo')
@@ -51,3 +53,4 @@
     </div>
 
 @endsection
+@endcan

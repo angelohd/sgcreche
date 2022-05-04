@@ -31,7 +31,7 @@ class ControllerAnoLectivo extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->route('ano_lectivos.index');
     }
 
     /**
@@ -72,7 +72,7 @@ class ControllerAnoLectivo extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('ano_lectivos.index');
     }
 
     /**
@@ -83,7 +83,7 @@ class ControllerAnoLectivo extends Controller
      */
     public function edit($id)
     {
-        //
+        return redirect()->route('ano_lectivos.index');
     }
 
     /**

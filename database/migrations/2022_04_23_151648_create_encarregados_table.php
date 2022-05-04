@@ -16,7 +16,7 @@ class CreateEncarregadosTable extends Migration
         Schema::create('encarregados', function (Blueprint $table) {
             $table->id();
             $table->string('nome')->nullable();
-            $table->enum('tipo_doc',['Passaporte','Bilhete de Identidade','Outro'])->nullable();
+            $table->string('tipo_doc')->nullable();
             $table->string('numero_doc')->nullable();
             $table->date('data_validade')->nullable();
             $table->text('endereco')->nullable();

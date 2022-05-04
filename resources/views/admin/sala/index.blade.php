@@ -1,3 +1,4 @@
+@can('list_sala')
 @extends('layout.index')
 @section('titulo', 'Sala')
 @section('corpo')
@@ -131,3 +132,4 @@
         </div>
     </div>
 @endsection
+@endcan

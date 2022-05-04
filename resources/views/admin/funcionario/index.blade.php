@@ -1,5 +1,7 @@
-@extends('layout.index')
-@section('titulo', 'Funcionario')
+@can('list_funcionario')
+
+    @extends('layout.index')
+    @section('titulo', 'Funcionario')
 @section('corpo')
 
     @include('admin.include.data_table')
@@ -96,13 +98,12 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     @can('edit_funcionario')
-                                                    <a href="{{ route('funcionarios.edit', $funcionario->id) }}"
-                                                        class="btn btn-primary">Editar</a> /
-
+                                                        <a href="{{ route('funcionarios.edit', $funcionario->id) }}"
+                                                            class="btn btn-primary">Editar</a> /
                                                     @endcan
                                                     @can('view_funcionario')
-                                                    <a href="{{ route('funcionarios.show', $funcionario->id) }}"
-                                                        class="btn btn-primary">Detalhe</a>
+                                                        <a href="{{ route('funcionarios.show', $funcionario->id) }}"
+                                                            class="btn btn-primary">Detalhe</a>
                                                     @endcan
                                                 </div>
                                             </div>
@@ -124,3 +125,4 @@
     </div>
 
 @endsection
+@endcan
