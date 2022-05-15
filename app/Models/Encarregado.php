@@ -11,5 +11,5 @@ class Encarregado extends Model
     use HasFactory,SoftDeletes;
 
     protected $table = "encarregados";
-    protected $fillable =['nome','tipo_doc','numero_doc','data_validade','endereco','telefone1','telefone2','email','funcionario_id'];
+    protected $fillable = ['nome','tipo_doc','numero_doc','data_validade','endereco','telefone1','telefone2','email','funcionario_id'];
 }

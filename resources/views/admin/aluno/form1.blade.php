@@ -104,11 +104,11 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="form-group">
-                <label>Nome</label>
-                <input id="nome_encarregado_2" name="nome_encarregado_2" type="text" class="form-control" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
+                <label>Nome *</label>
+                <input id="nome_encarregado_2" name="nome_encarregado_2" type="text" class="form-control required" pattern="[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
             </div>
             <div class="form-group">
-                <label>Tipo de Identificação</label>
+                <label>Tipo de Identificaçã *o</label>
                 <select class="form-control" name="tipo_doc_encarregado_2">
                     <option value="Bilhete de Identidade">Bilhete de Identidade</option>
                     <option value="Passaporte">Passaporte</option>
@@ -116,22 +116,22 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Numero de Identificação</label>
-                <input id="numero_doc_encarregado_2" name="numero_doc_encarregado_2" type="text" class="form-control"
+                <label>Numero de Identificação *</label>
+                <input id="numero_doc_encarregado_2" name="numero_doc_encarregado_2" type="text" class="form-control required"
                     onblur="encarregado2(this.value)">
             </div>
         </div>
 
         <div class="col-lg-4">
             <div class="form-group">
-                <label>Data de Validade</label>
+                <label>Data de Validade *</label>
                 <input id="data_validade_encarregado_2" name="data_validade_encarregado_2" type="date"
-                    class="form-control">
+                    class="form-control required">
             </div>
 
             <div class="form-group">
-                <label>Telefone 1</label>
-                <input id="telefone_encarregado_2" name="telefone1_encarregado_2" type="text" class="form-control"
+                <label>Telefone 1 *</label>
+                <input id="telefone_encarregado_2" name="telefone1_encarregado_2" type="text" class="form-control required"
                     data-mask="+244999999999">
             </div>
 

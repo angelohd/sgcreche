@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/email',[ControllerEnviaEmail::class,'email'])->name('email');
+// Route::get('/email',[ControllerEnviaEmail::class,'email'])->name('email');
 Route::post('/enviar',[ControllerEnviaEmail::class,'enviar'])->name('enviar');
 
 // Route::get('/email',function(){
@@ -31,6 +31,8 @@ Route::post('/enviar',[ControllerEnviaEmail::class,'enviar'])->name('enviar');
 //         $m->to('geral.info@wisekumbu.com');
 //     });
 // });
+
+Route::get('/buscar',[ControllerEnviaEmail::class,'buscar'])->name('buscar');
 
 Route::get('/', function () {
 
@@ -66,6 +68,7 @@ Route::middleware(['auth','funcionario'])->group(function () {
             Route::get('recilagem', [ControllerFuncionario::class, 'recilagem'])->name('recilagem');
             Route::post('restaurar/{id}', [ControllerFuncionario::class, 'restaurar'])->name('restaurar');
             Route::get('perfil/funcionario/{id}',[ControllerFuncionario::class,'perfil'])->name('perfil');
+            Route::post('perfil/mudar/senha/',[ControllerFuncionario::class,'mudar_senha'])->name('mudar_senha');
         });
 
         Route::resource('alunos', ControllerAluno::class);

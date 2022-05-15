@@ -20,7 +20,7 @@ class Controllersms extends Controller
         // $twilio_number = ENV('TWILIO_NUMBER');
 
         $account_sid = 'ACbba2658a53e19e441af50df601f29b8b';
-        $auth_token = '0a9cf53149d57208c6f9b2ebabf6c6a8';
+        $auth_token = 'ac4789440c2dc67dcacc7939c69fa900';
         $twilio_number = '+14785004950';
 
         // dd($account_sid);
@@ -35,7 +35,7 @@ class Controllersms extends Controller
     function viawathisapp($mensagem, $receptor)
     {
         $account_sid = 'ACbba2658a53e19e441af50df601f29b8b';
-        $auth_token = '0a9cf53149d57208c6f9b2ebabf6c6a8';
+        $auth_token = 'ac4789440c2dc67dcacc7939c69fa900';
         $twilio_number = '+14785004950';
 
         // dd($account_sid);

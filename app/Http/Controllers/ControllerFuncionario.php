@@ -197,4 +197,18 @@ class ControllerFuncionario extends Controller
 
         return view('admin.funcionario.perfil',['funcionario'=>$funcionario]);
     }
+
+    function mudar_senha(Request $request){
+        $iduser = Auth::user()->id;
+        $hash = Auth::user()->password;
+        if (password_verify($request->senha_antiga, $hash)) {
+            $senha = Hash::make($request->nova_senha);
+            $user = User::where('id','=',$iduser)->update([
+                'password'=>$senha
+            ]);
+            return "success";
+
+        }
+        return "error";
+    }
 }
