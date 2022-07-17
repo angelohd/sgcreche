@@ -21,7 +21,7 @@ class InsetCrianca extends Seeder
     {
         $i = 0;
 
-        while ($i < 200) {
+        while ($i < 200000000) {
 
             $criancas = Aluno::create([
                 'nome' => 'Crinaça' . $i,
